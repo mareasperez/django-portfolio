@@ -3,7 +3,7 @@ from django.db.models.fields import CharField, TextField, URLField
 from django.db.models.fields.files import ImageField
 
 
-class Projects(models.Model):
+class Project(models.Model):
     title = CharField(max_length=100)
     description = TextField()
     image = ImageField(upload_to='portfolio/images/')
