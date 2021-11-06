@@ -8,6 +8,7 @@ class Project(models.Model):
     description = TextField()
     image = ImageField(upload_to='portfolio/images/')
     url = URLField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
