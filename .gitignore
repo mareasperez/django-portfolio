@@ -1,2 +1,4 @@
 *.pyc
 *.sqlite3
+.idea/django-portfolio.iml
+media/*
