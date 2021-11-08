@@ -1,1 +1,12 @@
-<h1>posts</h1>
+{% extends 'layout.html' %}
+{% block content %}
+    <h1>posts</h1>
+    {% for p in posts %}
+        <h1>{{ p.title|upper }}</h1>
+        <p>{{ p.description|striptags|truncatechars:100 }}</p>
+        <p> {{ p.date|date:"M d, Y"|upper }}</p>
+        <img src="{{ p.image.url }}" alt="{{ p.title }}">
+        <a href="{% url 'blog:posts_by_id' p.id %}">Read more</a>
+    {% endfor %}
+
+{% endblock %}
