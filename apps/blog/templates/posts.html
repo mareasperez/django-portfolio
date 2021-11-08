@@ -2,11 +2,23 @@
 {% block content %}
     <h1>posts</h1>
     {% for p in posts %}
-        <h1>{{ p.title|upper }}</h1>
-        <p>{{ p.description|striptags|truncatechars:100 }}</p>
-        <p> {{ p.date|date:"M d, Y"|upper }}</p>
-        <img src="{{ p.image.url }}" alt="{{ p.title }}">
-        <a href="{% url 'blog:posts_by_id' p.id %}">Read more</a>
+        <div class="p-3">
+            <div class="card card-body bg-black">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="{{ p.image.url }}" alt="{{ p.title }}" class="img-fluid">
+                    </div>
+                    <div class="col-9">
+                        <h1>{{ p.title|upper }}</h1>
+                        <p>{{ p.description|striptags|truncatechars:100 }}</p>
+                        <p> {{ p.date|date:"M d, Y"|upper }}</p>
+                        <a href="{% url 'blog:posts_by_id' p.id %}" class="btn btn-primary">Read more</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     {% endfor %}
 
 {% endblock %}
