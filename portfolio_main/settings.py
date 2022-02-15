@@ -12,8 +12,17 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+import dj_database_url
+import django_heroku
+if os.path.exists(".env"):
+    load_dotenv()
+    print("loading environment for: " + str(os.environ.get("ENVIRONMENT")))
+else:
+    print("No .env file found")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -24,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!vj9=9j&+fa87#1=9wh(7z-e4+jzg&k4c_k(wh3m$4%vc7#v2b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = DEBUG = True if os.environ.get("ENVIRONMENT") == "DEV" else False
 
 ALLOWED_HOSTS = []
 
@@ -82,11 +91,17 @@ WSGI_APPLICATION = 'portfolio_main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    # environment variable
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"), conn_max_age=600
+    )
 }
 
 
@@ -133,3 +148,4 @@ MEDIA_URL = '/public/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+django_heroku.settings(locals())
