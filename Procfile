@@ -1,1 +1,1 @@
-web: daphne horarios.asgi:application --port $PORT --bind 0.0.0.0 -v2
+web: daphne portfolio_main.asgi:application --port $PORT --bind 0.0.0.0 -v2
